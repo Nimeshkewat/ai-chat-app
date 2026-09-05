@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import userRouter from "./routes/userRoutes.js";
+import chatRouter from "./routes/chatRoutes.js";
 
 const app = express();
 
@@ -18,5 +19,6 @@ app.use(cookieParser());
 app.get("/", (req, res) => res.send("Api Working"));
 
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/chats", chatRouter);
 
 export default app;
