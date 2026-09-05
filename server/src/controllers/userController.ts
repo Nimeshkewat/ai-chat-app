@@ -65,3 +65,18 @@ export const login = async (req: Request, res: Response) => {
     res.status(500).json({ success: false, message: errorMessage });
   }
 };
+
+export const logout = async (req: Request, res: Response) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "productio" ? "none" : "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "An unknow error occirred";
+    res.status(500).json({ success: false, message: errorMessage });
+  }
+};
