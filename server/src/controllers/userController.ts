@@ -82,3 +82,22 @@ export const logout = async (req: Request, res: Response) => {
     res.status(500).json({ success: false, message: errorMessage });
   }
 };
+
+export const getProfile = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.user;
+
+    const user = await User.findById(id).lean();
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "An unknow error occirred";
+    res.status(500).json({ success: false, message: errorMessage });
+  }
+};
