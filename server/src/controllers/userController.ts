@@ -112,7 +112,7 @@ export const checkAuth = async (req: Request, res: Response) => {
         .status(404)
         .json({ success: false, message: "Not Authorized" });
     }
-    res.status(200).json({ success: true, message: "user is logged in" });
+    res.status(200).json({ success: true, user });
   } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : "An unknow error occirred";
