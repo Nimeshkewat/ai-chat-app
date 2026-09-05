@@ -101,3 +101,21 @@ export const getProfile = async (req: Request, res: Response) => {
     res.status(500).json({ success: false, message: errorMessage });
   }
 };
+
+export const checkAuth = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.user;
+
+    const user = await User.findById(id);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Not Authorized" });
+    }
+    res.status(200).json({ success: true, message: "user is logged in" });
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "An unknow error occirred";
+    res.status(500).json({ success: false, message: errorMessage });
+  }
+};

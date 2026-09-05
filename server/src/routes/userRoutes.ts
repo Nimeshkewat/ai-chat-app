@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  checkAuth,
   getProfile,
   login,
   logout,
@@ -16,5 +17,6 @@ router.post("/login", validate(loginSchema), login);
 router.post("/logout", logout);
 
 router.get("/profile", authMiddleware, getProfile);
+router.get("/check-auth", authMiddleware, checkAuth);
 
 export default router;
