@@ -33,6 +33,15 @@ function App() {
         />
 
         <Route
+          path="/chat/:chatId"
+          element={
+            <PrivateRoute>
+              <Chat />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
           element={
             <PublicRoute>
               <AuthLayout />
