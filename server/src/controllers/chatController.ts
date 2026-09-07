@@ -75,3 +75,28 @@ export const deleteChat = async (req: Request, res: Response) => {
     res.status(500).json({ success: false, message: errorMessage });
   }
 };
+
+export const updateChat = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.user;
+    const { chatId } = req.params;
+    const { title } = req.body;
+
+    const chat = await Chat.findOneAndUpdate(
+      { user: id, _id: chatId },
+      { title },
+      { returnDocument: "after" },
+    );
+    if (!chat) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Chat not found" });
+    }
+
+    res.status(200).json({ success: true, chat });
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "An unknow error occirred";
+    res.status(500).json({ success: false, message: errorMessage });
+  }
+};
