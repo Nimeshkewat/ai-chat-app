@@ -29,3 +29,14 @@ export interface LogoutResponse {
   success: boolean;
   message: string;
 }
+
+export interface ProfileResponse {
+  success: boolean;
+  user: User;
+}
+
+export interface UpdateProfileResponse {
+  success: boolean;
+  message: string;
+  user: User;
+}
