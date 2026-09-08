@@ -9,9 +9,11 @@ const checkAuth = async (): Promise<CheckAuthResponse> => {
 };
 
 export const useCheckAuth = () => {
-  return useQuery<CheckAuthResponse, ApiError>({
+  return useQuery<CheckAuthResponse, ApiError, undefined>({
     queryKey: ["check-auth"],
     queryFn: checkAuth,
     retry: false,
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: true,
   });
 };
