@@ -4,6 +4,8 @@ interface IUser extends Document {
   username: string;
   email: string;
   password: string;
+  profilePhoto: string;
+  profilePhotoId: string;
   subscription: "Trial" | "Free" | "Basic" | "Premium";
   apiRequestCount: number;
 }
@@ -19,6 +21,8 @@ const userSchema = new mongoose.Schema<IUser>(
       trim: true,
     },
     password: { type: String, required: true, select: false },
+    profilePhoto: { type: String },
+    profilePhotoId: { type: String },
 
     subscription: {
       type: String,

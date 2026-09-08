@@ -2,6 +2,9 @@ import { Request, Response } from "express";
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
+import { tr } from "zod/locales";
+import uploadToCloudinary from "../utils/uploadImage.js";
 
 export const register = async (req: Request, res: Response) => {
   try {
@@ -113,6 +116,53 @@ export const checkAuth = async (req: Request, res: Response) => {
     }
     res.status(200).json({ success: true, user });
   } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "An unknow error occirred";
+    res.status(500).json({ success: false, message: errorMessage });
+  }
+};
+
+export const updateProfile = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.user;
+    const { username } = req.body;
+
+    const user = await User.findById(id).select("-password");
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    //* upload to cloudinary
+    let profilePictureUrl: string | undefined;
+    let profilePictureId: string | undefined;
+
+    if (req.file) {
+      //* delete the image before upload new one
+      if (user.profilePhotoId) {
+        try {
+          await cloudinary.uploader.destroy(user.profilePhotoId);
+        } catch (error) {
+          console.log("Failed to delete old profile photo", error);
+        }
+      }
+
+      const result = await uploadToCloudinary(req);
+      profilePictureUrl = result.secure_url;
+      profilePictureId = result.public_id;
+    }
+
+    user.profilePhoto = profilePictureUrl || user.profilePhoto;
+    user.profilePhotoId = profilePictureId || user.profilePhotoId;
+    user.username = username || user.username;
+    await user.save();
+
+    res
+      .status(200)
+      .json({ success: true, message: "Profile updated successfully", user });
+  } catch (error) {
+    console.log("raw", error);
     const errorMessage =
       error instanceof Error ? error.message : "An unknow error occirred";
     res.status(500).json({ success: false, message: errorMessage });
