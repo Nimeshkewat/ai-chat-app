@@ -3,6 +3,7 @@ export interface User {
   username: string;
   email: string;
   profilePhoto: string;
+  profilePhotoId: string;
   subscription: "Trial" | "Free" | "Basic" | "Premium";
   apiRequestCount: number;
 }
