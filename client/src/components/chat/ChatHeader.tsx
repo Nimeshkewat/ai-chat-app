@@ -1,5 +1,5 @@
 import { Button } from "../ui/button";
-import { MoreHorizontal, PanelLeft } from "lucide-react";
+import { PanelLeft } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { useGetChats } from "@/hooks/chat/useGetChats";
 
@@ -25,10 +25,6 @@ function ChatHeader({ onOpenSidebar }: { onOpenSidebar: () => void }) {
           <p className="text-xs text-muted-foreground">AI Assistant</p>
         </div>
       </div>
-
-      <Button variant="ghost" size="icon">
-        <MoreHorizontal className="h-5 w-5" />
-      </Button>
     </header>
   );
 }
