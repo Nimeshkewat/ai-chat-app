@@ -1,5 +1,4 @@
 import { Button } from "../ui/button";
-import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Separator } from "../ui/separator";
 import { ScrollArea } from "../ui/scroll-area";
 import { Input } from "../ui/input";
@@ -7,12 +6,9 @@ import {
   MessageSquare,
   Plus,
   MoreHorizontal,
-  Settings,
-  LogOut,
   Pencil,
   Trash2,
 } from "lucide-react";
-import { useLogout } from "@/hooks/auth/useLogout";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCreateNewChat } from "@/hooks/chat/useCreateChat";
@@ -26,9 +22,10 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { useState } from "react";
+import UserMenu from "./UserMenu";
+import ThemeToggle from "../ThemeToggle";
 
 function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
-  const { mutate: logout, isPending } = useLogout();
   const { mutate: createNewChat, isPending: isNewChatCreating } =
     useCreateNewChat();
   const { data, isLoading } = useGetChats();
@@ -43,15 +40,6 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const [renameValue, setRenameValue] = useState("");
 
   const chats = data?.chats ?? [];
-
-  const handleLogout = () => {
-    logout(undefined, {
-      onSuccess: async () => {
-        await queryClient.invalidateQueries();
-        navigate("/");
-      },
-    });
-  };
 
   const handleCreateNewChat = () => {
     createNewChat("New chat", {
@@ -98,8 +86,9 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <aside className="flex h-screen w-72 flex-col border-r bg-muted/30">
       {/* Logo */}
-      <div className="flex h-16 items-center px-4">
+      <div className="flex h-16 items-center justify-between px-4">
         <h1 className="text-xl font-bold">AI Chat</h1>
+        <ThemeToggle />
       </div>
 
       {/* New Chat */}
@@ -189,32 +178,7 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
       <Separator />
 
       {/* User */}
-      <div className="p-3">
-        <div className="flex items-center gap-3 rounded-lg p-2 hover:bg-accent">
-          <Avatar className="h-9 w-9">
-            <AvatarFallback>NK</AvatarFallback>
-          </Avatar>
-
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-medium">Nimesh</p>
-            <p className="truncate text-xs text-muted-foreground">Free plan</p>
-          </div>
-
-          <Button variant="ghost" size="icon" className="h-8 w-8">
-            <Settings className="h-4 w-4" />
-          </Button>
-        </div>
-
-        <Button
-          disabled={isPending}
-          onClick={handleLogout}
-          variant="ghost"
-          className="mt-1 w-full justify-start gap-3 text-muted-foreground"
-        >
-          <LogOut className="h-4 w-4" />
-          {isPending ? "Logging out" : "Logout"}
-        </Button>
-      </div>
+      <UserMenu />
     </aside>
   );
 }
