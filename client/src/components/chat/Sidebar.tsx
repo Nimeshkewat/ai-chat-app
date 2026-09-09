@@ -24,6 +24,7 @@ import {
 import { useState } from "react";
 import UserMenu from "./UserMenu";
 import ThemeToggle from "../ThemeToggle";
+import Loader from "../ui/Loader";
 
 function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const { mutate: createNewChat, isPending: isNewChatCreating } =
@@ -99,7 +100,13 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
           className="w-full justify-start gap-2"
         >
           <Plus className="h-4 w-4" />
-          {isNewChatCreating ? "Creating..." : "New chat"}
+          {isNewChatCreating ? (
+            <>
+              <Loader /> Creating...{" "}
+            </>
+          ) : (
+            "New chat"
+          )}
         </Button>
       </div>
 
@@ -109,9 +116,7 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
       <ScrollArea className="flex-1 px-3 py-2">
         <p className="px-3 text-sm text-muted-foreground">Recents</p>
         <div className="space-y-1">
-          {isLoading && (
-            <p className="px-2 text-xs text-muted-foreground">Loading...</p>
-          )}
+          {isLoading && <Loader size={25} />}
 
           {!isLoading && chats.length === 0 && (
             <p className="px-2 text-xs text-muted-foreground">No chats yet</p>

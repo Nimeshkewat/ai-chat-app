@@ -7,6 +7,7 @@ import type { RegisterInput } from "@/types/auth";
 import { useRegiseter } from "@/hooks/auth/useRegister";
 import { registerSchema } from "../../../server/src/validators/userValidator";
 import z from "zod";
+import Loader from "@/components/ui/Loader";
 
 function Register() {
   const [input, setInput] = useState<RegisterInput>({
@@ -144,7 +145,7 @@ function Register() {
         </div>
 
         <Button disabled={isPending} type="submit" className="w-full">
-          {isPending ? "Creating..." : "Create account"}
+          {isPending ? <Loader /> : "Create account"}
         </Button>
       </form>
 

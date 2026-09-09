@@ -8,6 +8,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import type { LoginInput } from "@/types/auth";
 import { z } from "zod";
 import { loginSchema } from "../../../server/src/validators/userValidator";
+import Loader from "@/components/ui/Loader";
 
 function Login() {
   const [input, setInput] = useState<LoginInput>({
@@ -115,7 +116,7 @@ function Login() {
         </div>
 
         <Button disabled={isPending} type="submit" className="w-full">
-          Login
+          {isPending ? <Loader /> : "Login"}
         </Button>
       </form>
 

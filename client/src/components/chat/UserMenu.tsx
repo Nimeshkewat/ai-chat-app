@@ -20,6 +20,7 @@ import {
 import { useEffect, useState, type ChangeEvent, type SubmitEvent } from "react";
 import { useGetProfile } from "@/hooks/auth/useGetProfile";
 import { useUpdateProfile } from "@/hooks/auth/useUpdateProfile";
+import Loader from "../ui/Loader";
 
 function UserMenu() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -87,7 +88,7 @@ function UserMenu() {
         <DropdownMenu>
           <DropdownMenuTrigger>
             {isLoading ? (
-              "..."
+              <Loader size={30} />
             ) : (
               <Avatar className="h-9 w-9">
                 <AvatarImage
@@ -201,7 +202,13 @@ function UserMenu() {
                 </Button>
 
                 <Button disabled={isProfileUpdating} type="submit">
-                  {isProfileUpdating ? "saving..." : "Save changes"}
+                  {isProfileUpdating ? (
+                    <>
+                      <Loader /> saving...
+                    </>
+                  ) : (
+                    "Save changes"
+                  )}
                 </Button>
               </div>
             </form>
