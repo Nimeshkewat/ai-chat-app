@@ -21,6 +21,7 @@ import { useEffect, useState, type ChangeEvent, type SubmitEvent } from "react";
 import { useGetProfile } from "@/hooks/auth/useGetProfile";
 import { useUpdateProfile } from "@/hooks/auth/useUpdateProfile";
 import Loader from "../ui/Loader";
+import ThemeToggle from "../ThemeToggle";
 
 function UserMenu() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -216,7 +217,8 @@ function UserMenu() {
         </Dialog>
 
         <Button variant="ghost" size="icon" className="h-8 w-8">
-          <Settings className="h-4 w-4" />
+          {/* <Settings className="h-4 w-4" /> */}
+          <ThemeToggle />
         </Button>
       </div>
     </div>

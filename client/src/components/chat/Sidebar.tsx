@@ -85,11 +85,10 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   };
 
   return (
-    <aside className="flex h-screen w-72 flex-col border-r bg-muted/30">
+    <aside className="flex h-screen p-1 w-72 flex-col border-r bg-muted/30">
       {/* Logo */}
       <div className="flex h-16 items-center justify-between px-4">
         <h1 className="text-xl font-bold">AI Chat</h1>
-        <ThemeToggle />
       </div>
 
       {/* New Chat */}
