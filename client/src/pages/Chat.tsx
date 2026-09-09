@@ -38,7 +38,7 @@ function Chat() {
           <MessageList messages={messages} isLoading={isLoading} />
         )}
 
-        {chatId && <ChatInput chatId={chatId} />}
+        <ChatInput chatId={chatId} />
       </main>
     </div>
   );
