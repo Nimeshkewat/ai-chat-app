@@ -11,16 +11,22 @@ import { validate } from "../middlewares/validate.js";
 import { loginSchema, registerSchema } from "../validators/userValidator.js";
 import { authMiddleware } from "../middlewares/auth.js";
 import upload from "../middlewares/multer.js";
+import {
+  loginLimiter,
+  registerLimiter,
+  uploadImageLimiter,
+} from "../middlewares/rateLimiters.js";
 
 const router = express.Router();
 
-router.post("/register", validate(registerSchema), register);
-router.post("/login", validate(loginSchema), login);
+router.post("/register", registerLimiter, validate(registerSchema), register);
+router.post("/login", loginLimiter, validate(loginSchema), login);
 router.post("/logout", logout);
 
 router.get("/profile", authMiddleware, getProfile);
 router.patch(
   "/update",
+  uploadImageLimiter,
   authMiddleware,
   upload.single("profilePhoto"),
   updateProfile,
