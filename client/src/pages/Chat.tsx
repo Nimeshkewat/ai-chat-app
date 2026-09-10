@@ -16,7 +16,7 @@ function Chat() {
   const messages = data?.messages ?? [];
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background">
+    <div className="flex h-dvh overflow-hidden bg-background">
       {/* Desktop sidebar */}
       <div className="hidden md:block">
         <Sidebar />
@@ -29,14 +29,16 @@ function Chat() {
         </SheetContent>
       </Sheet>
 
-      <main className="flex min-w-0 flex-1 flex-col">
+      <main className="flex min-w-0 flex-1 flex-col min-h-0">
         <ChatHeader onOpenSidebar={() => setSidebarOpen(true)} />
 
-        {!chatId || (messages.length === 0 && !isLoading) ? (
-          <EmptyChat />
-        ) : (
-          <MessageList messages={messages} isLoading={isLoading} />
-        )}
+        <div className="flex-1 min-h-0 overflow-y-auto">
+          {!chatId || (messages.length === 0 && !isLoading) ? (
+            <EmptyChat />
+          ) : (
+            <MessageList messages={messages} isLoading={isLoading} />
+          )}
+        </div>
 
         <ChatInput chatId={chatId} />
       </main>

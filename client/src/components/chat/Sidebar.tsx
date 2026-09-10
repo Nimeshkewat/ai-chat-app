@@ -84,7 +84,7 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   };
 
   return (
-    <aside className="flex h-screen p-1 w-72 flex-col border-r bg-muted/30">
+    <aside className="flex h-full w-full min-h-0 p-1  flex-col border-r bg-muted/30">
       {/* Logo */}
       <div className="flex h-16 items-center justify-between px-4">
         <h1 className="text-xl font-bold">AI Chat</h1>
@@ -111,7 +111,7 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
       <Separator />
 
       {/* Chats */}
-      <ScrollArea className="flex-1 px-3 py-2">
+      <ScrollArea className="flex-1 min-h-0 px-3 py-2">
         <p className="px-3 text-sm text-muted-foreground">Recents</p>
         <div className="space-y-1">
           {isLoading && <Loader size={25} />}
