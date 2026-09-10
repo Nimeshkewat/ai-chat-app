@@ -42,7 +42,7 @@ function Register() {
         username: fieldErrors.username?.[0],
         email: fieldErrors.email?.[0],
         password: fieldErrors.password?.[0],
-        confirmPassword: <fieldErrors className="confi"></fieldErrors>?.[0],
+        confirmPassword: fieldErrors.confirmPassword?.[0],
       });
       return;
     }
