@@ -34,6 +34,7 @@ function Register() {
       return setApiError("Password and confirm password do not match");
     }
     setApiError("");
+    setInputErrors({});
 
     const result = registerSchema.safeParse(input);
     if (!result.success) {
