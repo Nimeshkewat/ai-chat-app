@@ -1,5 +1,5 @@
 import "dotenv/config";
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import userRouter from "./routes/userRoutes.js";
@@ -17,7 +17,7 @@ app.use(
 );
 app.use(cookieParser());
 
-app.get("/", (req, res) => res.send("Api Working"));
+app.get("/", (req: Request, res: Response) => res.send("Api Working"));
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/chats", chatRouter);

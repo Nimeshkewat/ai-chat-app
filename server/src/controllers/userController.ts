@@ -2,8 +2,7 @@ import { Request, Response } from "express";
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
-import { tr } from "zod/locales";
+import { v2 as cloudinary } from "cloudinary";
 import uploadToCloudinary from "../utils/uploadImage.js";
 
 export const register = async (req: Request, res: Response) => {
@@ -74,7 +73,7 @@ export const logout = async (req: Request, res: Response) => {
     res.clearCookie("token", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "productio" ? "none" : "strict",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
     });
 
     res.status(200).json({ success: true, message: "Logged out successfully" });
