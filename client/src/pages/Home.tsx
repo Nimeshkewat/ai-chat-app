@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { MessageSquare, Sparkles, Zap, ShieldCheck } from "lucide-react";
+import ThemeToggle from "@/components/ThemeToggle";
 
 function Home() {
   return (
@@ -16,6 +17,7 @@ function Home() {
             <Button>
               <Link to="/login">Login</Link>
             </Button>
+            <ThemeToggle />
           </div>
         </div>
       </header>
