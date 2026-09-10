@@ -7,7 +7,7 @@ import {
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
-import { LogOut, Settings, User } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useLogout } from "@/hooks/auth/useLogout";
 import {
@@ -64,8 +64,7 @@ function UserMenu() {
     }
 
     updateProfile(formData, {
-      onSuccess: async (data) => {
-        console.log(data);
+      onSuccess: async () => {
         await queryClient.invalidateQueries({ queryKey: ["profile"] });
         setIsProfileOpen(false);
         setImageFile("");
@@ -216,10 +215,8 @@ function UserMenu() {
           </DialogContent>
         </Dialog>
 
-        <Button variant="ghost" size="icon" className="h-8 w-8">
-          {/* <Settings className="h-4 w-4" /> */}
-          <ThemeToggle />
-        </Button>
+        {/* <Settings className="h-4 w-4" /> */}
+        <ThemeToggle />
       </div>
     </div>
   );

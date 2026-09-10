@@ -23,7 +23,6 @@ import {
 } from "../ui/dropdown-menu";
 import { useState } from "react";
 import UserMenu from "./UserMenu";
-import ThemeToggle from "../ThemeToggle";
 import Loader from "../ui/Loader";
 
 function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
