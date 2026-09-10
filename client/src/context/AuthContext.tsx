@@ -9,13 +9,9 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 function AuthContextProvider({ children }: { children: ReactNode }) {
-  const { data, isLoading, isError, error } = useCheckAuth();
+  const { data, isLoading, isError } = useCheckAuth();
 
   const isAuthenticated = !isError && data?.user ? true : false;
-
-  if (isError) {
-    console.log(error.response?.data.message || error?.message);
-  }
 
   const value = { isAuthenticated, isLoading };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
