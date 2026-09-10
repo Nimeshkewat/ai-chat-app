@@ -5,7 +5,7 @@ import { Label } from "../components/ui/label";
 import { useState, type ChangeEvent, type SubmitEvent } from "react";
 import type { RegisterInput } from "@/types/auth";
 import { useRegiseter } from "@/hooks/auth/useRegister";
-import { registerSchema } from "../../../server/src/validators/userValidator";
+import { registerSchema } from "../schema/userSchema";
 import z from "zod";
 import Loader from "@/components/ui/Loader";
 
@@ -42,7 +42,7 @@ function Register() {
         username: fieldErrors.username?.[0],
         email: fieldErrors.email?.[0],
         password: fieldErrors.password?.[0],
-        confirmPassword: fieldErrors.password?.[0],
+        confirmPassword: <fieldErrors className="confi"></fieldErrors>?.[0],
       });
       return;
     }
