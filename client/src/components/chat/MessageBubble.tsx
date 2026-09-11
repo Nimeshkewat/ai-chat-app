@@ -1,4 +1,5 @@
-import { Avatar, AvatarFallback } from "../ui/avatar";
+import { useGetProfile } from "@/hooks/auth/useGetProfile";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 interface MessageBubbleProps {
   role: "user" | "assistant";
@@ -6,6 +7,7 @@ interface MessageBubbleProps {
 }
 
 function MessageBubble({ role, content }: MessageBubbleProps) {
+  const { data } = useGetProfile();
   const isUser = role === "user";
 
   return (
@@ -28,7 +30,10 @@ function MessageBubble({ role, content }: MessageBubbleProps) {
 
       {isUser && (
         <Avatar className="mt-1 h-8 w-8 shrink-0">
-          <AvatarFallback>NK</AvatarFallback>
+          <AvatarImage src={data?.user.profilePhoto} />
+          <AvatarFallback>
+            {data?.user.username[0].toUpperCase()}
+          </AvatarFallback>
         </Avatar>
       )}
     </div>
